@@ -1,0 +1,26 @@
+#Wed Mar 05 15:51:14 CET 2003
+doc_admin=Documentadmin
+type=Type
+no_text=No text entered
+_self=Same Window
+page=Page
+link=Link
+no_access=Login first\!
+link_name=Name
+close=Close
+all_documents=All documents
+iw.component.com.idega.block.documents.presentation.Doc.name=Documents
+documents=documents
+category=Category
+_top=Top frame
+locale=Locale
+document_date=Date
+save=Save
+_parent=Parent frame
+box_admin=Box Admin
+file=File
+document_name=Document name
+category_name=Name
+box_category_editor=Category Editor
+_blank=New Window
+target=Target

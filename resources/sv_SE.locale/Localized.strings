@@ -1,0 +1,27 @@
+#Tue Sep 09 17:03:06 CEST 2003
+=
+_blank=Nytt f\u00F6nster
+_parent=F\u00F6r\u00E4lderf\u00F6nstret
+_self=Samma f\u00F6nster
+_top=\u00D6versta f\u00F6nstret
+all_documents=Alla dokument
+box_admin=Dokumentredakt\u00F6r
+box_category_editor=Dokumentkategorier
+category=Kategori
+category_name=Namn av kategori
+close=St\u00E4ng
+doc_admin=Dokumentredakt\u00F6r
+document_date=Datum
+document_name=Namn av dokument
+documents=dokument
+file=Fil
+iw.component.com.idega.block.documents.presentation.Doc.name=Dokument
+link=L\u00E4nk
+link_name=Namn av l\u00E4nk
+locale=Spr\u00E5k
+no_access=Ingen r\u00E4ttighet
+no_text=Ingen text
+page=Sida
+save=Spara
+target=M\u00E5l
+type=Typ
