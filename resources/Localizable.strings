@@ -1,4 +1,4 @@
-#Tue Sep 09 17:03:06 CEST 2003
+#Fri Oct 24 12:54:48 CEST 2003
 =
 _blank=N\u00FDr gluggi
 _parent=Rammi foreldris
@@ -15,6 +15,7 @@ document_date=Date
 document_name=Document name
 documents=documents
 file=Skjal
+generate_report=
 iw.component.com.idega.block.documents.presentation.Doc.name=Doc
 link=Tengill
 link_name=Nafn

@@ -1,4 +1,4 @@
-#Tue Sep 09 17:03:06 CEST 2003
+#Fri Oct 24 10:43:10 CEST 2003
 =
 _blank=Nytt f\u00F6nster
 _parent=F\u00F6r\u00E4lderf\u00F6nstret
@@ -15,6 +15,7 @@ document_date=Datum
 document_name=Namn av dokument
 documents=dokument
 file=Fil
+generate_report=
 iw.component.com.idega.block.documents.presentation.Doc.name=Dokument
 link=L\u00E4nk
 link_name=Namn av l\u00E4nk
