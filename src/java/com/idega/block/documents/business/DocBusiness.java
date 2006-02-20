@@ -170,7 +170,7 @@ public class DocBusiness extends IBOServiceBean {
 
 		if (!update) {
 			try {
-				link.setCreationDate(new IWTimestamp().getTimestampRightNow());
+				link.setCreationDate(IWTimestamp.getTimestampRightNow());
 				if (folderId != -1) {
 					link.setFolderID(folderId);
 				}
