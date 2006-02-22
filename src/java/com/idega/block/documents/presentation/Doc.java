@@ -1,6 +1,7 @@
 package com.idega.block.documents.presentation;
 
 import java.rmi.RemoteException;
+
 import com.idega.block.category.business.FolderBlockBusiness;
 import com.idega.block.category.data.InformationCategory;
 import com.idega.block.category.data.InformationFolder;
@@ -11,7 +12,6 @@ import com.idega.business.IBOLookup;
 import com.idega.business.IBOLookupException;
 import com.idega.core.builder.business.ICDynamicPageTriggerCopySession;
 import com.idega.core.builder.business.ICDynamicPageTriggerInheritable;
-import com.idega.core.localisation.business.ICLocaleBusiness;
 import com.idega.idegaweb.IWBundle;
 import com.idega.idegaweb.IWResourceBundle;
 import com.idega.idegaweb.block.presentation.Builderaware;
@@ -36,9 +36,7 @@ public class Doc extends FolderBlock implements Builderaware, ICDynamicPageTrigg
 
 	private int _folderID = -1;
 	private int _catID = -1;
-	private boolean _isAdmin = false;
 	private String _attribute;
-	private int _iLocaleID;
 	private int _layout = -1;
 	private boolean iShowCategoryText = true;
 
@@ -80,12 +78,8 @@ public class Doc extends FolderBlock implements Builderaware, ICDynamicPageTrigg
 	private Image _deleteImage;
 	private Image _createImage;
 	private Image _editImage;
-	private Image _detachImage;
 
 	private Table _myTable;
-	private boolean _newObjInst = false;
-	private boolean _newWithAttribute = false;
-
 	private boolean _styles = true;
 	private int _numberOfColumns;
 	private String _headerColor;
@@ -103,8 +97,6 @@ public class Doc extends FolderBlock implements Builderaware, ICDynamicPageTrigg
 	private String _informationStyle;
 	private String _name;
 	private String _highlightColor = "#0000FF";
-
-	private String _target;
 
 	private static String _addPermisson = "add";
 	//private static String _infoPermission = "info";
@@ -160,9 +152,7 @@ public class Doc extends FolderBlock implements Builderaware, ICDynamicPageTrigg
 		_createImage = _iwbCore.getImage("shared/create.gif");
 		_deleteImage = _iwbCore.getImage("shared/delete.gif");
 		_editImage = _iwbCore.getImage("shared/edit.gif");
-		_detachImage = _iwbCore.getImage("shared/detach.gif");
 
-		_isAdmin = iwc.hasEditPermission(this);
 		//System.out.println("Doc . _isAdmin " + _isAdmin);
 		_hasEditPermission = iwc.hasEditPermission(this);
 
@@ -171,9 +161,6 @@ public class Doc extends FolderBlock implements Builderaware, ICDynamicPageTrigg
 		} else {
 			_hasAddPermission = iwc.hasPermission(_addPermisson, this);
 		}
-
-		//_isAdmin = true;
-		_iLocaleID = ICLocaleBusiness.getLocaleId(iwc.getCurrentLocale());
 
 		iwc.removeApplicationAttribute(DocBusiness.PARAMETER_LINK_ID);
 		iwc.removeApplicationAttribute(DocBusiness.PARAMETER_NEW_OBJECT_INSTANCE);
@@ -741,7 +728,6 @@ public class Doc extends FolderBlock implements Builderaware, ICDynamicPageTrigg
 		_visitedStyle = "font-face: Arial, Helvetica,sans-serif; font-size: 11px; color: #000000;";
 		_activeStyle = "font-face: Arial, Helvetica,sans-serif; font-size: 11px; color: #000000;";
 		_hoverStyle = "font-face: Arial, Helvetica,sans-serif; font-size: 11px; color: #000000;";
-		_target = Link.TARGET_TOP_WINDOW;
 	}
 
 	/**
@@ -867,7 +853,6 @@ public class Doc extends FolderBlock implements Builderaware, ICDynamicPageTrigg
 	 *@param  target  The new target value
 	 */
 	public void setTarget(String target) {
-		_target = target;
 	}
 
 	/**
