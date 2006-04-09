@@ -119,7 +119,7 @@ public class Doc extends FolderBlock implements Builderaware, ICDynamicPageTrigg
 	 */
 	public Doc(int folderID) {
 		this();
-		_folderID = folderID;
+		this._folderID = folderID;
 	}
 
 	/**
@@ -129,7 +129,7 @@ public class Doc extends FolderBlock implements Builderaware, ICDynamicPageTrigg
 	 */
 	public Doc(String attribute) {
 		this();
-		_attribute = attribute;
+		this._attribute = attribute;
 	}
 
 	public void registerPermissionKeys() {
@@ -144,22 +144,22 @@ public class Doc extends FolderBlock implements Builderaware, ICDynamicPageTrigg
 	 *@exception  Exception  Description of the Exception
 	 */
 	public void main(IWContext iwc) throws Exception {
-		_iwrb = getResourceBundle(iwc);
-		_iwbDoc = getBundle(iwc);
-		_iwbCore = iwc.getIWMainApplication().getBundle(IW_CORE_BUNDLE_IDENTIFIER);
+		this._iwrb = getResourceBundle(iwc);
+		this._iwbDoc = getBundle(iwc);
+		this._iwbCore = iwc.getIWMainApplication().getBundle(IW_CORE_BUNDLE_IDENTIFIER);
 		
 
-		_createImage = _iwbCore.getImage("shared/create.gif");
-		_deleteImage = _iwbCore.getImage("shared/delete.gif");
-		_editImage = _iwbCore.getImage("shared/edit.gif");
+		this._createImage = this._iwbCore.getImage("shared/create.gif");
+		this._deleteImage = this._iwbCore.getImage("shared/delete.gif");
+		this._editImage = this._iwbCore.getImage("shared/edit.gif");
 
 		//System.out.println("Doc . _isAdmin " + _isAdmin);
-		_hasEditPermission = iwc.hasEditPermission(this);
+		this._hasEditPermission = iwc.hasEditPermission(this);
 
-		if (_hasEditPermission) {
-			_hasAddPermission = true;
+		if (this._hasEditPermission) {
+			this._hasAddPermission = true;
 		} else {
-			_hasAddPermission = iwc.hasPermission(_addPermisson, this);
+			this._hasAddPermission = iwc.hasPermission(_addPermisson, this);
 		}
 
 		iwc.removeApplicationAttribute(DocBusiness.PARAMETER_LINK_ID);
@@ -167,29 +167,29 @@ public class Doc extends FolderBlock implements Builderaware, ICDynamicPageTrigg
 
 		InformationFolder folder = null;
 
-		if (_folderID < 0) {
+		if (this._folderID < 0) {
 			folder = this.getWorkFolder();
 			if (folder != null) {
-				_folderID = folder.getID();
+				this._folderID = folder.getID();
 			}
 		} else {
 			/**
 			 * @todo move from DocFinder to FolderBusiness
 			 */
-			folder = DocBusiness.getFolder(_folderID);
+			folder = DocBusiness.getFolder(this._folderID);
 		}
 
-		_myTable = new Table(1, 2);
-		_myTable.setCellpadding(0);
-		_myTable.setCellspacing(0);
+		this._myTable = new Table(1, 2);
+		this._myTable.setCellpadding(0);
+		this._myTable.setCellspacing(0);
 		//_myTable.setBorder(1);
 		
 		
 		//toolbar
-		if(_hasEditPermission){
+		if(this._hasEditPermission){
 			Link change = getCategoryLink();
-			change.setImage(_iwbCore.getImage("/shared/detach.gif"));
-			_myTable.add(change,1,1);
+			change.setImage(this._iwbCore.getImage("/shared/detach.gif"));
+			this._myTable.add(change,1,1);
 		}
 		
 
@@ -233,21 +233,21 @@ public class Doc extends FolderBlock implements Builderaware, ICDynamicPageTrigg
 
 		if (iwc.getParameter(DocBusiness.PARAMETER_CATEGORY_ID) != null) {
 			try {
-				_catID = Integer.parseInt(iwc.getParameter(DocBusiness.PARAMETER_CATEGORY_ID));
+				this._catID = Integer.parseInt(iwc.getParameter(DocBusiness.PARAMETER_CATEGORY_ID));
 			} catch (NumberFormatException e) {
-				_catID = -1;
+				this._catID = -1;
 			}
 		}
 
 		int row = 1;
-		if (_hasEditPermission) {
-			_myTable.add(getAdminPart(), 1, row);
+		if (this._hasEditPermission) {
+			this._myTable.add(getAdminPart(), 1, row);
 			row++;
 		}
 
 //		System.out.println("_myTable.add(getPresentation(folder,iwc),1,row);: " + folder + "," + iwc + "," + 1 + "," + row);
-		_myTable.add(getPresentation(folder, iwc), 1, row);
-		add(_myTable);
+		this._myTable.add(getPresentation(folder, iwc), 1, row);
+		add(this._myTable);
 	}
 
 	/**
@@ -262,21 +262,21 @@ public class Doc extends FolderBlock implements Builderaware, ICDynamicPageTrigg
 
 		Table boxTable = new Table();
 		boxTable.setCellpadding(0);
-		boxTable.setCellspacing(_boxSpacing);
+		boxTable.setCellspacing(this._boxSpacing);
 
 		InformationCategory[] categories = this.getCategoriesToView();
 		if (categories != null) {
-			switch (_layout) {
+			switch (this._layout) {
 				case BOX_VIEW :
 					System.out.println("getBoxView(folder,categories,boxTable);: " + folder + "," + categories + "," + boxTable);
 					getBoxView(folder, categories, boxTable, iwc);
 					break;
 				case CATEGORY_VIEW :
-					boxTable.setWidth(_boxWidth);
+					boxTable.setWidth(this._boxWidth);
 					getCategoryView(folder, categories, boxTable, iwc);
 					break;
 				case COLLECTION_VIEW :
-					boxTable.setWidth(_boxWidth);
+					boxTable.setWidth(this._boxWidth);
 					boxTable.setCellspacing(0);
 					getCollectionView(folder, categories, boxTable, iwc);
 					break;
@@ -306,17 +306,17 @@ public class Doc extends FolderBlock implements Builderaware, ICDynamicPageTrigg
 				}
 
 				Text categoryText = new Text(categoryString);
-				categoryText.setFontStyle(_categoryStyle);
+				categoryText.setFontStyle(this._categoryStyle);
 
 				Table table = new Table();
 				table.setCellpadding(3);
 				table.setCellspacing(1);
-				table.setWidth(_boxWidth);
-				table.setHeight(_boxHeight);
+				table.setWidth(this._boxWidth);
+				table.setHeight(this._boxHeight);
 				table.setHeight(2, "100%");
-				table.setColor(_borderColor);
-				table.setColor(1, 1, _headerColor);
-				table.setColor(1, 2, _inlineColor);
+				table.setColor(this._borderColor);
+				table.setColor(1, 1, this._headerColor);
+				table.setColor(1, 2, this._inlineColor);
 				table.setAlignment(1, 1, "center");
 				table.setVerticalAlignment(1, 1, "middle");
 				table.setVerticalAlignment(1, 2, "top");
@@ -324,9 +324,9 @@ public class Doc extends FolderBlock implements Builderaware, ICDynamicPageTrigg
 				table.add(categoryText, 1, 1);
 
 				Table linksTable = new Table();
-				linksTable.setRows(_numberOfDisplayed + 1);
+				linksTable.setRows(this._numberOfDisplayed + 1);
 				linksTable.setWidth("100%");
-				if (_hasEditPermission) {
+				if (this._hasEditPermission) {
 					linksTable.setHeight("100%");
 				}
 				table.add(linksTable, 1, 2);
@@ -334,7 +334,7 @@ public class Doc extends FolderBlock implements Builderaware, ICDynamicPageTrigg
 				int linkRow = 1;
 
 				DocLink[] links = DocBusiness.getLinksInFolderCategory(folder, categories[a]);
-				int linksLength = _numberOfDisplayed;
+				int linksLength = this._numberOfDisplayed;
 				if (links != null) {
 					if (links.length < linksLength) {
 						linksLength = links.length;
@@ -346,7 +346,7 @@ public class Doc extends FolderBlock implements Builderaware, ICDynamicPageTrigg
 							linksTable.add(link, 1, linkRow);
 							linksTable.setWidth(1, linkRow, "100%");
 
-							if (_hasEditPermission || _hasAddPermission) {
+							if (this._hasEditPermission || this._hasAddPermission) {
 								linksTable.add(getEditLink(links[b].getID()), 2, linkRow);
 								linksTable.add(getDeleteLink(links[b].getID()), 2, linkRow);
 							}
@@ -354,14 +354,14 @@ public class Doc extends FolderBlock implements Builderaware, ICDynamicPageTrigg
 						}
 					}
 
-					if (_hasAddPermission) {
-						linksTable.add(getAddLink(categories[a].getID()), 1, _numberOfDisplayed + 1);
-						linksTable.setHeight(1, _numberOfDisplayed + 1, "100%");
-						linksTable.setVerticalAlignment(1, _numberOfDisplayed + 1, "bottom");
+					if (this._hasAddPermission) {
+						linksTable.add(getAddLink(categories[a].getID()), 1, this._numberOfDisplayed + 1);
+						linksTable.setHeight(1, this._numberOfDisplayed + 1, "100%");
+						linksTable.setVerticalAlignment(1, this._numberOfDisplayed + 1, "bottom");
 					}
 				}
 
-				if (column % _numberOfColumns == 0) {
+				if (column % this._numberOfColumns == 0) {
 					boxTable.add(table, column, row);
 					row++;
 					column = 1;
@@ -396,13 +396,13 @@ public class Doc extends FolderBlock implements Builderaware, ICDynamicPageTrigg
 			ic_obj_inst_id = icObjectInstanceID;
 		}
 
-		TextStyler styler = new TextStyler(_categoryStyle);
-		styler.setStyleValue(StyleConstants.ATTRIBUTE_COLOR, _highlightColor);
-		Image categoryImage = _iwbDoc.getImage("shared/category.gif");
+		TextStyler styler = new TextStyler(this._categoryStyle);
+		styler.setStyleValue(StyleConstants.ATTRIBUTE_COLOR, this._highlightColor);
+		Image categoryImage = this._iwbDoc.getImage("shared/category.gif");
 
 		for (int a = 0; a <= categories.length; a++) {
-			if (a == 0 && (_catID == -1 || ic_obj_inst_id != icObjectInstanceID)&&(a < categories.length)) {
-				_catID = categories[a].getID();
+			if (a == 0 && (this._catID == -1 || ic_obj_inst_id != icObjectInstanceID)&&(a < categories.length)) {
+				this._catID = categories[a].getID();
 			}
 
 			//tmp
@@ -413,18 +413,21 @@ public class Doc extends FolderBlock implements Builderaware, ICDynamicPageTrigg
 				if (categoryString == null) {
 					categoryString = "$language$";
 				}
-			} else
-				categoryString = _iwrb.getLocalizedString("all_documents", "All documents");
+			}
+			else {
+				categoryString = this._iwrb.getLocalizedString("all_documents", "All documents");
+			}
 
 			int categoryID = 0;
-			if (a < categories.length)
+			if (a < categories.length) {
 				categoryID = categories[a].getID();
+			}
 
 			Text categoryText = new Text(categoryString);
-			if (_catID == categoryID) {
+			if (this._catID == categoryID) {
 				categoryText.setFontStyle(styler.getStyleString());
 			} else {
-				categoryText.setFontStyle(_categoryStyle);
+				categoryText.setFontStyle(this._categoryStyle);
 			}
 
 			Link categoryImageLink = new Link(categoryImage);
@@ -438,30 +441,34 @@ public class Doc extends FolderBlock implements Builderaware, ICDynamicPageTrigg
 			categoryTable.add(categoryLink, 2, a + 1);
 
 			int documents = 0;
-			if (a < categories.length)
+			if (a < categories.length) {
 				documents = DocBusiness.getNumberOfLinksInFolderCategory(folder, categories[a]);
-			else
+			}
+			else {
 				documents = DocBusiness.getNumberOfLinksInFolder(folder);
+			}
 
-			Text documentText = new Text(Text.NON_BREAKING_SPACE + "(" + String.valueOf(documents) + Text.NON_BREAKING_SPACE + _iwrb.getLocalizedString("documents", "documents") + ")");
-			documentText.setFontStyle(_informationStyle);
+			Text documentText = new Text(Text.NON_BREAKING_SPACE + "(" + String.valueOf(documents) + Text.NON_BREAKING_SPACE + this._iwrb.getLocalizedString("documents", "documents") + ")");
+			documentText.setFontStyle(this._informationStyle);
 			categoryTable.add(documentText, 3, a + 1);
 		}
 
-		InformationCategory category = DocBusiness.getCategory(_catID);
+		InformationCategory category = DocBusiness.getCategory(this._catID);
 		boxTable.add(categoryTable, 1, row);
 		row++;
 		boxTable.setHeight(1, row, "5");
 		row++;
 
-		if (_catID != -1) {
+		if (this._catID != -1) {
 			int linkRow = 1;
 
 			DocLink[] links = null;
-			if (_catID != 0)
+			if (this._catID != 0) {
 				links = DocBusiness.getLinksInFolderCategory(folder, category);
-			else
+			}
+			else {
 				links = DocBusiness.getLinksInFolder(folder);
+			}
 
 			if (links != null && ic_obj_inst_id == icObjectInstanceID) {
 				Table linksTable = new Table();
@@ -470,12 +477,12 @@ public class Doc extends FolderBlock implements Builderaware, ICDynamicPageTrigg
 				linksTable.setWidth("100%");
 				linksTable.setWidth(1, "100%");
 
-				Text documentNameText = new Text(_iwrb.getLocalizedString("document_name", "Document name"));
-				documentNameText.setFontStyle(_linkStyle + " font-weight: bold;");
+				Text documentNameText = new Text(this._iwrb.getLocalizedString("document_name", "Document name"));
+				documentNameText.setFontStyle(this._linkStyle + " font-weight: bold;");
 				linksTable.add(documentNameText, 1, linkRow);
 
-				Text documentDateText = new Text(_iwrb.getLocalizedString("document_date", "Date"));
-				documentDateText.setFontStyle(_linkStyle + " font-weight: bold;");
+				Text documentDateText = new Text(this._iwrb.getLocalizedString("document_date", "Date"));
+				documentDateText.setFontStyle(this._linkStyle + " font-weight: bold;");
 				linksTable.add(documentDateText, 2, linkRow);
 				linkRow++;
 
@@ -493,10 +500,10 @@ public class Doc extends FolderBlock implements Builderaware, ICDynamicPageTrigg
 						if (stamp != null) {
 							dateText.setText(TextSoap.addZero(stamp.getDay()) + "." + TextSoap.addZero(stamp.getMonth()) + "." + Integer.toString(stamp.getYear()));
 						}
-						dateText.setFontStyle(_linkStyle);
+						dateText.setFontStyle(this._linkStyle);
 						linksTable.add(dateText, 2, linkRow);
 
-						if (_hasEditPermission || _hasAddPermission) {
+						if (this._hasEditPermission || this._hasAddPermission) {
 							linksTable.add(getEditLink(links[b].getID()), 3, linkRow);
 							linksTable.add(getDeleteLink(links[b].getID()), 3, linkRow);
 						}
@@ -507,7 +514,7 @@ public class Doc extends FolderBlock implements Builderaware, ICDynamicPageTrigg
 				row++;
 			}
 		}
-		if (_hasAddPermission && _catID != -1 && _catID != 0 && ic_obj_inst_id == icObjectInstanceID) {
+		if (this._hasAddPermission && this._catID != -1 && this._catID != 0 && ic_obj_inst_id == icObjectInstanceID) {
 			boxTable.add(getAddLink(category.getID()), 1, row);
 		}
 	}
@@ -524,7 +531,7 @@ public class Doc extends FolderBlock implements Builderaware, ICDynamicPageTrigg
 		int row = 1;
 
 		Image image = Table.getTransparentCell(iwc);
-		image.setHeight(_boxSpacing);
+		image.setHeight(this._boxSpacing);
 
 		for (int a = 0; a < categories.length; a++) {
 			//tmp
@@ -540,9 +547,9 @@ public class Doc extends FolderBlock implements Builderaware, ICDynamicPageTrigg
 			table.setCellpadding(1);
 			int linkRow = 1;
 
-			if (iShowCategoryText) {
+			if (this.iShowCategoryText) {
 				Text categoryText = new Text(categoryString);
-				categoryText.setFontStyle(_categoryStyle);
+				categoryText.setFontStyle(this._categoryStyle);
 				table.add(categoryText, 1, linkRow++);
 			}
 			
@@ -554,7 +561,7 @@ public class Doc extends FolderBlock implements Builderaware, ICDynamicPageTrigg
 						table.add(link, 1, linkRow);
 						table.setWidth(1, linkRow, "100%");
 
-						if (_hasEditPermission || _hasAddPermission) {
+						if (this._hasEditPermission || this._hasAddPermission) {
 							table.add(getEditLink(links[b].getID()), 2, linkRow);
 							table.add(getDeleteLink(links[b].getID()), 2, linkRow);
 						}
@@ -562,14 +569,14 @@ public class Doc extends FolderBlock implements Builderaware, ICDynamicPageTrigg
 					}
 				}
 
-				if (_hasAddPermission) {
+				if (this._hasAddPermission) {
 					table.add(getAddLink(categories[a].getID()), 1, linkRow);
 				}
 			}
 
 			boxTable.add(table, 1, row++);
 
-			if (iShowCategoryText) {
+			if (this.iShowCategoryText) {
 				boxTable.add(image, 1, row++);
 			}
 		}
@@ -619,8 +626,8 @@ public class Doc extends FolderBlock implements Builderaware, ICDynamicPageTrigg
 		//DocBusiness.getLocalizedString(boxLink,_iLocaleID);
 		if (linkString != null) {
 			Link link = new Link(linkString);
-			if (_styles) {
-				link.setStyle(_name);
+			if (this._styles) {
+				link.setStyle(this._name);
 			} else {
 				link.setFontSize(1);
 			}
@@ -658,7 +665,7 @@ public class Doc extends FolderBlock implements Builderaware, ICDynamicPageTrigg
 	 *@return             The addLink value
 	 */
 	private Link getAddLink(int categoryID) {
-		Link addLink = new Link(_createImage);
+		Link addLink = new Link(this._createImage);
 
 		addLink.setWindowToOpen(DocEditorWindow.class);
 		addLink.addParameter(DocEditorWindow._PRM_OBJECT_ID, this.getICObjectID());
@@ -666,7 +673,7 @@ public class Doc extends FolderBlock implements Builderaware, ICDynamicPageTrigg
 		addLink.addParameter(DocEditorWindow._PRM_OBJECT_INSTANCE_ID, this.getICObjectInstanceID());
 		if (this.getContentLocaleIdentifier() != null) {
 			addLink.addParameter(DocBusiness.PARAMETER_CONTENT_LOCALE_IDENTIFIER, this.getContentLocaleIdentifier());
-			addLink.addParameter(DocEditorWindow._PRM_FOLDER_ID, _folderID);
+			addLink.addParameter(DocEditorWindow._PRM_FOLDER_ID, this._folderID);
 		}
 
 		return addLink;
@@ -679,7 +686,7 @@ public class Doc extends FolderBlock implements Builderaware, ICDynamicPageTrigg
 	 *@return         The editLink value
 	 */
 	private Link getEditLink(int linkID) {
-		Link editLink = new Link(_editImage);
+		Link editLink = new Link(this._editImage);
 		editLink.setWindowToOpen(DocEditorWindow.class);
 		editLink.addParameter(DocEditorWindow._PRM_DOC_ID, linkID);
 		editLink.addParameter(DocEditorWindow._PRM_MODE, DocEditorWindow._MODE_EDITDOC);
@@ -687,7 +694,7 @@ public class Doc extends FolderBlock implements Builderaware, ICDynamicPageTrigg
 		editLink.addParameter(DocEditorWindow._PRM_OBJECT_INSTANCE_ID, this.getICObjectInstanceID());
 		if (this.getContentLocaleIdentifier() != null) {
 			editLink.addParameter(DocEditorWindow._PRM_CONTENT_LOCALE_IDENTIFIER, this.getContentLocaleIdentifier());
-			editLink.addParameter(DocEditorWindow._PRM_FOLDER_ID, _folderID);
+			editLink.addParameter(DocEditorWindow._PRM_FOLDER_ID, this._folderID);
 		}
 		return editLink;
 	}
@@ -699,7 +706,7 @@ public class Doc extends FolderBlock implements Builderaware, ICDynamicPageTrigg
 	 *@return         The deleteLink value
 	 */
 	private Link getDeleteLink(int linkID) {
-		Link deleteLink = new Link(_deleteImage);
+		Link deleteLink = new Link(this._deleteImage);
 		deleteLink.setWindowToOpen(DocEditorWindow.class);
 		deleteLink.addParameter(DocEditorWindow._PRM_DOC_ID, linkID);
 		deleteLink.addParameter(DocEditorWindow._PRM_MODE, DocEditorWindow._MODE_DELETE);
@@ -713,21 +720,21 @@ public class Doc extends FolderBlock implements Builderaware, ICDynamicPageTrigg
 	 *  Sets the defaultValues attribute of the Doc object
 	 */
 	private void setDefaultValues() {
-		_layout = BOX_VIEW;
-		_numberOfColumns = 3;
-		_headerColor = "#D8D8D8";
-		_borderColor = "#6E6E6E";
-		_inlineColor = "#FFFFFF";
-		_boxWidth = "120";
-		_boxHeight = "120";
-		_boxSpacing = 3;
-		_numberOfDisplayed = 4;
-		_informationStyle = "font-face: Arial, Helvetica, sans-serif; font-size: 10px; color: #999999;";
-		_categoryStyle = "font-face: Arial, Helvetica, sans-serif; font-size: 11px; font-weight: bold";
-		_linkStyle = "font-face: Arial, Helvetica,sans-serif; font-size: 11px; color: #000000;";
-		_visitedStyle = "font-face: Arial, Helvetica,sans-serif; font-size: 11px; color: #000000;";
-		_activeStyle = "font-face: Arial, Helvetica,sans-serif; font-size: 11px; color: #000000;";
-		_hoverStyle = "font-face: Arial, Helvetica,sans-serif; font-size: 11px; color: #000000;";
+		this._layout = BOX_VIEW;
+		this._numberOfColumns = 3;
+		this._headerColor = "#D8D8D8";
+		this._borderColor = "#6E6E6E";
+		this._inlineColor = "#FFFFFF";
+		this._boxWidth = "120";
+		this._boxHeight = "120";
+		this._boxSpacing = 3;
+		this._numberOfDisplayed = 4;
+		this._informationStyle = "font-face: Arial, Helvetica, sans-serif; font-size: 10px; color: #999999;";
+		this._categoryStyle = "font-face: Arial, Helvetica, sans-serif; font-size: 11px; font-weight: bold";
+		this._linkStyle = "font-face: Arial, Helvetica,sans-serif; font-size: 11px; color: #000000;";
+		this._visitedStyle = "font-face: Arial, Helvetica,sans-serif; font-size: 11px; color: #000000;";
+		this._activeStyle = "font-face: Arial, Helvetica,sans-serif; font-size: 11px; color: #000000;";
+		this._hoverStyle = "font-face: Arial, Helvetica,sans-serif; font-size: 11px; color: #000000;";
 	}
 
 	/**
@@ -736,7 +743,7 @@ public class Doc extends FolderBlock implements Builderaware, ICDynamicPageTrigg
 	 *@param  columns  The new numberOfColumns value
 	 */
 	public void setNumberOfColumns(int columns) {
-		_numberOfColumns = columns;
+		this._numberOfColumns = columns;
 	}
 
 	/**
@@ -745,7 +752,7 @@ public class Doc extends FolderBlock implements Builderaware, ICDynamicPageTrigg
 	 *@param  color  The new headerColor value
 	*/
 	public void setHeaderColor(String color) {
-		_headerColor = color;
+		this._headerColor = color;
 	}
 
 	/**
@@ -754,7 +761,7 @@ public class Doc extends FolderBlock implements Builderaware, ICDynamicPageTrigg
 	 *@param  color  The new borderColor value
 	 */
 	public void setBorderColor(String color) {
-		_borderColor = color;
+		this._borderColor = color;
 	}
 
 	/**
@@ -763,7 +770,7 @@ public class Doc extends FolderBlock implements Builderaware, ICDynamicPageTrigg
 	 *@param  color  The new inlineColor value
 	 */
 	public void setInlineColor(String color) {
-		_inlineColor = color;
+		this._inlineColor = color;
 	}
 
 	/**
@@ -772,7 +779,7 @@ public class Doc extends FolderBlock implements Builderaware, ICDynamicPageTrigg
 	 *@param  width  The new width value
 	 */
 	public void setWidth(String width) {
-		_boxWidth = width;
+		this._boxWidth = width;
 	}
 
 	/**
@@ -790,7 +797,7 @@ public class Doc extends FolderBlock implements Builderaware, ICDynamicPageTrigg
 	 *@param  height  The new height value
 	 */
 	public void setHeight(String height) {
-		_boxHeight = height;
+		this._boxHeight = height;
 	}
 
 	/**
@@ -808,7 +815,7 @@ public class Doc extends FolderBlock implements Builderaware, ICDynamicPageTrigg
 	 *@param  layout  The new layout value
 	 */
 	public void setLayout(int layout) {
-		_layout = layout;
+		this._layout = layout;
 	}
 
 	/**
@@ -817,7 +824,7 @@ public class Doc extends FolderBlock implements Builderaware, ICDynamicPageTrigg
 	 *@param  spacing  The new boxSpacing value
 	 */
 	public void setBoxSpacing(int spacing) {
-		_boxSpacing = spacing;
+		this._boxSpacing = spacing;
 	}
 
 	/**
@@ -826,7 +833,7 @@ public class Doc extends FolderBlock implements Builderaware, ICDynamicPageTrigg
 	 *@param  number  The new numberOfDisplayed value
 	 */
 	public void setNumberOfDisplayed(int number) {
-		_numberOfDisplayed = number;
+		this._numberOfDisplayed = number;
 	}
 
 	/**
@@ -835,7 +842,7 @@ public class Doc extends FolderBlock implements Builderaware, ICDynamicPageTrigg
 	 *@param  style  The new categoryStyle value
 	 */
 	public void setCategoryStyle(String style) {
-		_categoryStyle = style;
+		this._categoryStyle = style;
 	}
 
 	/**
@@ -844,7 +851,7 @@ public class Doc extends FolderBlock implements Builderaware, ICDynamicPageTrigg
 	 *@param  style  The new informationStyle value
 	 */
 	public void setInformationStyle(String style) {
-		_informationStyle = style;
+		this._informationStyle = style;
 	}
 
 	/**
@@ -864,10 +871,10 @@ public class Doc extends FolderBlock implements Builderaware, ICDynamicPageTrigg
 	 *@param  hoverStyle    The new linkStyle value
 	 */
 	public void setLinkStyle(String linkStyle, String activeStyle, String visitedStyle, String hoverStyle) {
-		_linkStyle = linkStyle;
-		_visitedStyle = linkStyle;
-		_activeStyle = visitedStyle;
-		_hoverStyle = hoverStyle;
+		this._linkStyle = linkStyle;
+		this._visitedStyle = linkStyle;
+		this._activeStyle = visitedStyle;
+		this._hoverStyle = hoverStyle;
 	}
 
 	/**
@@ -876,31 +883,31 @@ public class Doc extends FolderBlock implements Builderaware, ICDynamicPageTrigg
 	 *@param  color  The new selectedCategoryColor value
 	 */
 	public void setSelectedCategoryColor(String color) {
-		_highlightColor = color;
+		this._highlightColor = color;
 	}
 
 	/**
 	 *  Sets the styles attribute of the Doc object
 	 */
 	private void setStyles() {
-		if (_name == null) {
-			_name = this.getName();
+		if (this._name == null) {
+			this._name = this.getName();
 		}
-		if (_name == null) {
-			if (_attribute == null) {
-				_name = "documents_" + Integer.toString(_folderID);
+		if (this._name == null) {
+			if (this._attribute == null) {
+				this._name = "documents_" + Integer.toString(this._folderID);
 			} else {
-				_name = "documents_" + _attribute;
+				this._name = "documents_" + this._attribute;
 			}
 		}
 
 		if (getParentPage() != null) {
-			getParentPage().setStyleDefinition("A." + _name + ":link", _linkStyle);
-			getParentPage().setStyleDefinition("A." + _name + ":visited", _visitedStyle);
-			getParentPage().setStyleDefinition("A." + _name + ":active", _activeStyle);
-			getParentPage().setStyleDefinition("A." + _name + ":hover", _hoverStyle);
+			getParentPage().setStyleDefinition("A." + this._name + ":link", this._linkStyle);
+			getParentPage().setStyleDefinition("A." + this._name + ":visited", this._visitedStyle);
+			getParentPage().setStyleDefinition("A." + this._name + ":active", this._activeStyle);
+			getParentPage().setStyleDefinition("A." + this._name + ":hover", this._hoverStyle);
 		} else {
-			_styles = false;
+			this._styles = false;
 		}
 	}
 
@@ -965,7 +972,7 @@ public class Doc extends FolderBlock implements Builderaware, ICDynamicPageTrigg
 
 	
 	public void setShowCategoryText(boolean showCategoryText) {
-		iShowCategoryText = showCategoryText;
+		this.iShowCategoryText = showCategoryText;
 	}
 
 }
