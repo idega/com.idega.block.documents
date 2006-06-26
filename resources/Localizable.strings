@@ -1,4 +1,3 @@
-#Mon Oct 27 01:32:55 CET 2003
 =
 _blank=N\u00FDr gluggi
 _parent=Rammi foreldris
@@ -7,6 +6,7 @@ _top=Efsti rammi
 all_documents=All documents
 box_admin=Skjalastj\u00F3ri
 box_category_editor=Skjalaflokkar
+cancel=CANCEL
 category=Flokkur
 category_name=Nafn
 close=Loka
@@ -26,3 +26,4 @@ page=S\u00ED\u00F0a
 save=Vista
 target=\u00C1fangasta\u00F0ur
 type=Tegund
+yes=YES
