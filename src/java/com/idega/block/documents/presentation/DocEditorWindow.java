@@ -28,7 +28,7 @@ import com.idega.presentation.ui.TextInput;
 
 /**
  * Description of the Class
- * 
+ *
  * @author <a href="gummi@idega.is">Gudmundur Agust Saemundsson</a>
  * @created 15. mars 2002
  */
@@ -103,12 +103,13 @@ public class DocEditorWindow extends IWAdminWindow {
 
 	/**
 	 * Description of the Method
-	 * 
+	 *
 	 * @param iwc
 	 *          Description of the Parameter
 	 * @exception Exception
 	 *              Description of the Exception
 	 */
+	@Override
 	public void main(IWContext iwc) throws Exception {
 		this.business = (FolderBlockBusiness) IBOLookup.getServiceInstance(iwc, FolderBlockBusiness.class);
 		this._hasEditpermission = true;
@@ -117,7 +118,7 @@ public class DocEditorWindow extends IWAdminWindow {
 		addTitle(this._iwrb.getLocalizedString("doc_admin", "Doc Admin"));
 		Locale currentLocale = iwc.getCurrentLocale();
 		try {
-			this._userID = LoginBusinessBean.getUser(iwc).getID();
+			this._userID = LoginBusinessBean.getUser(iwc).getId();
 		}
 		catch (Exception e) {
 			this._userID = -1;
@@ -464,7 +465,7 @@ public class DocEditorWindow extends IWAdminWindow {
 
 	/**
 	 * Description of the Method
-	 * 
+	 *
 	 * @param iLocaleId
 	 *          Description of the Parameter
 	 * @param instanceId
@@ -567,7 +568,7 @@ public class DocEditorWindow extends IWAdminWindow {
 
 	/**
 	 * Description of the Method
-	 * 
+	 *
 	 * @param iwc
 	 *          Description of the Parameter
 	 * @return Description of the Return Value
@@ -633,7 +634,7 @@ public class DocEditorWindow extends IWAdminWindow {
 
 	/**
 	 * Description of the Method
-	 * 
+	 *
 	 * @param iwc
 	 *          Description of the Parameter
 	 */
@@ -643,7 +644,7 @@ public class DocEditorWindow extends IWAdminWindow {
 
 	/**
 	 * Description of the Method
-	 * 
+	 *
 	 * @param iwc
 	 *          Description of the Parameter
 	 */
@@ -654,7 +655,7 @@ public class DocEditorWindow extends IWAdminWindow {
 
 	/**
 	 * Description of the Method
-	 * 
+	 *
 	 * @exception Exception
 	 *              Description of the Exception
 	 */
@@ -665,9 +666,10 @@ public class DocEditorWindow extends IWAdminWindow {
 
 	/**
 	 * Gets the bundleIdentifier attribute of the DocEditorWindow object
-	 * 
+	 *
 	 * @return The bundleIdentifier value
 	 */
+	@Override
 	public String getBundleIdentifier() {
 		return IW_BUNDLE_IDENTIFIER;
 	}
