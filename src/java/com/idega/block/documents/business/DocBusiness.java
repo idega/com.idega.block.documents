@@ -2,6 +2,8 @@ package com.idega.block.documents.business;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.ejb.CreateException;
 import javax.ejb.FinderException;
@@ -588,7 +590,7 @@ public class DocBusiness extends IBOServiceBean {
 			e.printStackTrace();
 			return null;
 		} catch (FinderException e) {
-			e.printStackTrace();
+			Logger.getLogger(DocBusiness.class.getName()).log(Level.WARNING, e.getMessage());
 			return null;
 		}
 	}
