@@ -590,7 +590,7 @@ public class DocBusiness extends IBOServiceBean {
 			e.printStackTrace();
 			return null;
 		} catch (FinderException e) {
-			Logger.getLogger(DocBusiness.class.getName()).log(Level.WARNING, e.getMessage());
+			Logger.getLogger(DocBusiness.class.getName()).log(Level.WARNING, "[DocBusiness]: " + e.getMessage());
 			return null;
 		}
 	}
